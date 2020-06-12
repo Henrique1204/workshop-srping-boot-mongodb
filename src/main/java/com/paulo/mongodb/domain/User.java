@@ -1,8 +1,11 @@
 package com.paulo.mongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user") // (collection = "user") é opcional, caso não utilize o mesmo, o sistema irá mapear de acordo com o nome da classe sq com letra minúscula
@@ -14,6 +17,9 @@ public class User implements Serializable
 	private String id;
 	private String name;
 	private String email;
+
+	@DBRef(lazy = true)
+	private List<Post> posts = new ArrayList<>();
 
 	// Construtores
 	public User() {}
@@ -41,6 +47,11 @@ public class User implements Serializable
 		return this.email;
 	}
 
+	public List<Post> getPosts()
+	{
+		return this.posts;
+	}
+
 	// Setters
 	public void setId(String id)
 	{
@@ -55,6 +66,11 @@ public class User implements Serializable
 	public void setEmail(String email)
 	{
 		this.email = email;
+	}
+
+	public void setPosts(List<Post> posts)
+	{
+		this.posts = posts;
 	}
 
 	// HashCode e Equals
