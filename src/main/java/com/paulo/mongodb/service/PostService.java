@@ -1,5 +1,6 @@
 package com.paulo.mongodb.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,5 +27,11 @@ public class PostService
 	{
 		//return rep.findByTitleContainingIgnoreCase(texto);
 		return rep.buscarTitulo(texto);
+	}
+
+	public List<Post> fullSearch(String texto, Date minDate, Date maxDate)
+	{
+		maxDate = new Date(maxDate.getTime() + ( 24 * 60 * 60 * 1000 ) );
+		return rep.fullSearch(texto, minDate, maxDate);
 	}
 }
