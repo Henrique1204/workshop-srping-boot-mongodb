@@ -1,5 +1,6 @@
 package com.paulo.mongodb.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class PostService
 	{
 		Optional<Post> post = rep.findById(id);
 		return post.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+
+	public List<Post> findByTitle(String texto)
+	{
+		return rep.findByTitleContainingIgnoreCase(texto);
 	}
 }
